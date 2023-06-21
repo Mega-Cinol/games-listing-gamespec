@@ -8,3 +8,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/gamespec
     username: gamespec
     password: password
+  liquibase:
+    change-log: classpath:db/changelogs/changelog-master.xml
