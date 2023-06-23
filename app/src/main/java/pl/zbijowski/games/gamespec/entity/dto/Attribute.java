@@ -9,4 +9,6 @@ public interface Attribute
     String name();
 
     String description();
+
+    boolean shared();
 }
