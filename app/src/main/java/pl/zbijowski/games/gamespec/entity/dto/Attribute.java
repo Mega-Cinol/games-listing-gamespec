@@ -11,4 +11,8 @@ public interface Attribute
     String description();
 
     boolean shared();
+
+    String displayPattern();
+
+    String nullPattern();
 }

@@ -5,7 +5,9 @@ import java.util.UUID;
 public record TextAttribute(UUID id,
                             String name,
                             String description,
-                            boolean shared)
+                            boolean shared,
+                            String displayPattern,
+                            String nullPattern)
         implements Attribute
 {
 

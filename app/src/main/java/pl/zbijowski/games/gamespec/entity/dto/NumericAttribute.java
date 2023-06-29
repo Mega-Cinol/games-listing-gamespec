@@ -6,9 +6,10 @@ public record NumericAttribute(UUID id,
                                String name,
                                String description,
                                boolean shared,
+                               String displayPattern,
+                               String nullPattern,
                                Integer minValue,
-                               Integer maxValue,
-                               String displayPattern)
+                               Integer maxValue)
         implements Attribute
 {
 
