@@ -1,0 +1,464 @@
+{
+  "databaseChangeLog" : [ {
+    "changeSet" : {
+      "id" : "change_1.0",
+      "author" : "MegaCinol",
+      "comment" : "Create initial database structure",
+      "changes" : [ {
+        "createTable" : {
+          "tableName" : "games",
+          "columns" : [ {
+            "column" : {
+              "name" : "id",
+              "type" : "bigint",
+              "autoIncrement" : true,
+              "constraints" : {
+                "primaryKey" : true,
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "identifier",
+              "type" : "uuid",
+              "constraints" : {
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_created",
+              "type" : "timestamp",
+              "defaultValueComputed" : "CURRENT_TIMESTAMP",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_updated",
+              "type" : "timestamp"
+            }
+          }, {
+            "column" : {
+              "name" : "name",
+              "type" : "varchar(63)",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "description",
+              "type" : "varchar(1023)"
+            }
+          } ]
+        }
+      }, {
+        "createTable" : {
+          "tableName" : "attributes",
+          "columns" : [ {
+            "column" : {
+              "name" : "id",
+              "type" : "bigint",
+              "autoIncrement" : true,
+              "constraints" : {
+                "primaryKey" : true,
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "identifier",
+              "type" : "uuid",
+              "constraints" : {
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_created",
+              "type" : "timestamp",
+              "defaultValueComputed" : "CURRENT_TIMESTAMP",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_updated",
+              "type" : "timestamp"
+            }
+          }, {
+            "column" : {
+              "name" : "name",
+              "type" : "varchar(63)",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "description",
+              "type" : "varchar(1023)"
+            }
+          }, {
+            "column" : {
+              "name" : "type",
+              "type" : "varchar(15)",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "game_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__attribute__game",
+                "referencedTableName" : "games",
+                "referencedColumnNames" : "id"
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "display_pattern",
+              "type" : "varchar(63)",
+              "defaultValue" : "%0"
+            }
+          }, {
+            "column" : {
+              "name" : "null_pattern",
+              "type" : "varchar(63)",
+              "defaultValue" : ""
+            }
+          }, {
+            "column" : {
+              "name" : "min_value",
+              "type" : "int"
+            }
+          }, {
+            "column" : {
+              "name" : "max_value",
+              "type" : "int"
+            }
+          } ]
+        }
+      }, {
+        "createTable" : {
+          "tableName" : "attribute_allowed_values",
+          "columns" : [ {
+            "column" : {
+              "name" : "id",
+              "type" : "bigint",
+              "autoIncrement" : true,
+              "constraints" : {
+                "primaryKey" : true,
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_created",
+              "type" : "timestamp",
+              "defaultValueComputed" : "CURRENT_TIMESTAMP",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_updated",
+              "type" : "timestamp"
+            }
+          }, {
+            "column" : {
+              "name" : "attribute_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__attribute__attribute_allowed_value",
+                "referencedTableName" : "attributes",
+                "referencedColumnNames" : "id"
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "value",
+              "type" : "varchar(1023)",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          } ]
+        }
+      }, {
+        "createTable" : {
+          "tableName" : "attribute_child_attributes",
+          "columns" : [ {
+            "column" : {
+              "name" : "id",
+              "type" : "bigint",
+              "autoIncrement" : true,
+              "constraints" : {
+                "primaryKey" : true,
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_created",
+              "type" : "timestamp",
+              "defaultValueComputed" : "CURRENT_TIMESTAMP",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_updated",
+              "type" : "timestamp"
+            }
+          }, {
+            "column" : {
+              "name" : "parent_attribute_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__attribute__attribute_child_attribute_parent",
+                "referencedTableName" : "attributes",
+                "referencedColumnNames" : "id"
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "child_attribute_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__attribute__attribute_child_attribute_child",
+                "referencedTableName" : "attributes",
+                "referencedColumnNames" : "id"
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "distance",
+              "type" : "int",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          } ]
+        }
+      }, {
+        "createTable" : {
+          "tableName" : "entities",
+          "columns" : [ {
+            "column" : {
+              "name" : "id",
+              "type" : "bigint",
+              "autoIncrement" : true,
+              "constraints" : {
+                "primaryKey" : true,
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "identifier",
+              "type" : "uuid",
+              "constraints" : {
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_created",
+              "type" : "timestamp",
+              "defaultValueComputed" : "CURRENT_TIMESTAMP",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_updated",
+              "type" : "timestamp"
+            }
+          }, {
+            "column" : {
+              "name" : "name",
+              "type" : "varchar(63)",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "description",
+              "type" : "varchar(1023)"
+            }
+          }, {
+            "column" : {
+              "name" : "game_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__entity__game",
+                "referencedTableName" : "games",
+                "referencedColumnNames" : "id"
+              }
+            }
+          } ]
+        }
+      }, {
+        "createTable" : {
+          "tableName" : "entity_child_entities",
+          "columns" : [ {
+            "column" : {
+              "name" : "id",
+              "type" : "bigint",
+              "autoIncrement" : true,
+              "constraints" : {
+                "primaryKey" : true,
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_created",
+              "type" : "timestamp",
+              "defaultValueComputed" : "CURRENT_TIMESTAMP",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_updated",
+              "type" : "timestamp"
+            }
+          }, {
+            "column" : {
+              "name" : "parent_entity_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__entity__entity_child_entity_parent",
+                "referencedTableName" : "entities",
+                "referencedColumnNames" : "id"
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "child_entity_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__entity__entity_child_entity_child",
+                "referencedTableName" : "entities",
+                "referencedColumnNames" : "id"
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "distance",
+              "type" : "int",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          } ]
+        }
+      }, {
+        "createTable" : {
+          "tableName" : "entity_attributes",
+          "columns" : [ {
+            "column" : {
+              "name" : "id",
+              "type" : "bigint",
+              "autoIncrement" : true,
+              "constraints" : {
+                "primaryKey" : true,
+                "nullable" : false,
+                "unique" : true
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_created",
+              "type" : "timestamp",
+              "defaultValueComputed" : "CURRENT_TIMESTAMP",
+              "constraints" : {
+                "nullable" : false
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "date_updated",
+              "type" : "timestamp"
+            }
+          }, {
+            "column" : {
+              "name" : "entity_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__entity__entity_attribute",
+                "referencedTableName" : "entities",
+                "referencedColumnNames" : "id"
+              }
+            }
+          }, {
+            "column" : {
+              "name" : "attribute_id",
+              "type" : "bigint",
+              "constraints" : {
+                "nullable" : false,
+                "foreignKeyName" : "fk__attribute__entity_attribute",
+                "referencedTableName" : "attributes",
+                "referencedColumnNames" : "id"
+              }
+            }
+          } ]
+        }
+      } ]
+    }
+  }, {
+    "changeSet" : {
+      "id" : "change_1.1",
+      "author" : "MegaCinol",
+      "comment" : "Add check constraints improving data quality. Liquibase addCheckConstraint is only available in pro version. Use sql statement instead.",
+      "changes" : [ {
+        "sql" : {
+          "dbms" : "all",
+          "sql" : "ALTER TABLE attributes ADD CONSTRAINT valid_attribute_type CHECK (type IN ('Text', 'Number', 'Composed'))",
+          "comment" : "Limit attribute type to \"Text\", \"Number\", or \"Composed\"."
+        }
+      }, {
+        "sql" : {
+          "dbms" : "all",
+          "sql" : "ALTER TABLE attributes ADD CONSTRAINT valid_int_attribute CHECK ((min_value IS NULL AND max_value IS NULL) OR type = 'Number')",
+          "comment" : "Only allow attribute's \"min_value\" and \"max_value\" for \"Number\" attributes."
+        }
+      }, {
+        "sql" : {
+          "dbms" : "all",
+          "sql" : "ALTER TABLE attributes ADD CONSTRAINT valid_min_and_max_value CHECK (min_value IS NULL OR max_value IS NULL OR min_value <= max_value)",
+          "comment" : "Ensure that \"min_value\" is not greater than \"max_value\"."
+        }
+      } ]
+    }
+  } ]
+}
